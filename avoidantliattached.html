@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="linen">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architecture of Connection — Attachment Theory</title>
+<meta name="description" content="A feeling-first, science-grounded guide to attachment theory: Secure, Anxious-Ambivalent/Preoccupied, Dismissive-Avoidant, and Fearful-Avoidant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- TOKENS ---------- */
+:root {
+  --linen-bg: #f1ebde;
+  --linen-elev: #f8f3e7;
+  --linen-surf: rgba(255, 251, 240, 0.55);
+  --linen-surf-2: rgba(255, 251, 240, 0.85);
+  --linen-border: rgba(58, 44, 28, 0.10);
+  --linen-text: #2a2316;
+  --linen-mute: #6f6452;
+  --linen-acc: #b85a2a;
+  --linen-acc-2: #6b8a52;
+  --linen-shadow-d: rgba(58, 44, 28, 0.10);
+  --linen-shadow-l: rgba(255, 255, 255, 0.95);
+
+  --obs-bg: #0a0d14;
+  --obs-elev: #11151f;
+  --obs-surf: rgba(28, 34, 48, 0.45);
+  --obs-surf-2: rgba(28, 34, 48, 0.72);
+  --obs-border: rgba(220, 230, 250, 0.07);
+  --obs-text: #e9e6dd;
+  --obs-mute: #9aa0b0;
+  --obs-acc: #7fc0d4;
+  --obs-acc-2: #d6a878;
+  --obs-shadow-d: rgba(0, 0, 0, 0.55);
+  --obs-shadow-l: rgba(255, 255, 255, 0.03);
+
+  --aur-bg: #0c0818;
+  --aur-elev: #160f2c;
+  --aur-surf: rgba(48, 28, 78, 0.42);
+  --aur-surf-2: rgba(48, 28, 78, 0.68);
+  --aur-border: rgba(190, 150, 255, 0.13);
+  --aur-text: #ede2f6;
+  --aur-mute: #ad9dc8;
+  --aur-acc: #cb7bdd;
+  --aur-acc-2: #5cd9c0;
+  --aur-shadow-d: rgba(15, 4, 30, 0.65);
+  --aur-shadow-l: rgba(190, 150, 255, 0.06);
+
+  --bone-bg: #f7f6f4;
+  --bone-elev: #ffffff;
+  --bone-surf: rgba(255, 255, 255, 0.65);
+  --bone-surf-2: rgba(255, 255, 255, 0.92);
+  --bone-border: rgba(0, 0, 0, 0.07);
+  --bone-text: #0c0c0c;
+  --bone-mute: #6a6a6a;
+  --bone-acc: #161616;
+  --bone-acc-2: #4f4f4f;
+  --bone-shadow-d: rgba(0, 0, 0, 0.05);
+  --bone-shadow-l: rgba(255, 255, 255, 0.95);
+
+  /* Active theme maps to --t-* */
+  --t-bg: var(--linen-bg);
+  --t-elev: var(--linen-elev);
+  --t-surf: var(--linen-surf);
+  --t-surf-2: var(--linen-surf-2);
+  --t-border: var(--linen-border);
+  --t-text: var(--linen-text);
+  --t-mute: var(--linen-mute);
+  --t-acc: var(--linen-acc);
+  --t-acc-2: var(--linen-acc-2);
+  --t-shadow-d: var(--linen-shadow-d);
+  --t-shadow-l: var(--linen-shadow-l);
+
+  /* Style accents (consistent across themes) */
+  --s-secure: #6b8a52;
+  --s-secure-2: #c4a35a;
+  --s-anxious: #c9603a;
+  --s-anxious-2: #e09060;
+  --s-dismissive: #5b87a4;
+  --s-dismissive-2: #8aa9bf;
+  --s-fearful: #8662c4;
+  --s-fearful-2: #b58cdd;
+
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="obsidian"] {
+  --t-bg: var(--obs-bg); --t-elev: var(--obs-elev);
+  --t-surf: var(--obs-surf); --t-surf-2: var(--obs-surf-2);
+  --t-border: var(--obs-border); --t-text: var(--obs-text);
+  --t-mute: var(--obs-mute); --t-acc: var(--obs-acc);
+  --t-acc-2: var(--obs-acc-2); --t-shadow-d: var(--obs-shadow-d);
+  --t-shadow-l: var(--obs-shadow-l);
+}
+[data-theme="aurora"] {
+  --t-bg: var(--aur-bg); --t-elev: var(--aur-elev);
+  --t-surf: var(--aur-surf); --t-surf-2: var(--aur-surf-2);
+  --t-border: var(--aur-border); --t-text: var(--aur-text);
+  --t-mute: var(--aur-mute); --t-acc: var(--aur-acc);
+  --t-acc-2: var(--aur-acc-2); --t-shadow-d: var(--aur-shadow-d);
+  --t-shadow-l: var(--aur-shadow-l);
+}
+[data-theme="bone"] {
+  --t-bg: var(--bone-bg); --t-elev: var(--bone-elev);
+  --t-surf: var(--bone-surf); --t-surf-2: var(--bone-surf-2);
+  --t-border: var(--bone-border); --t-text: var(--bone-text);
+  --t-mute: var(--bone-mute); --t-acc: var(--bone-acc);
+  --t-acc-2: var(--bone-acc-2); --t-shadow-d: var(--bone-shadow-d);
+  --t-shadow-l: var(--bone-shadow-l);
+}
+
+/* ---------- BASE ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  background: var(--t-bg);
+  color: var(--t-text);
+  line-height: 1.6;
+  letter-spacing: -0.011em;
+  transition: background 0.6s var(--ease-soft), color 0.6s var(--ease-soft);
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection { background: var(--t-acc); color: var(--t-bg); }
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+[data-theme="linen"] body::before,
+[data-theme="bone"] body::before { opacity: 0.35; mix-blend-mode: multiply; }
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 350;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  font-variation-settings: "SOFT" 50, "WONK" 0, "opsz" 144;
+}
+
+p { font-size: 1.025rem; line-height: 1.75; color: var(--t-text); }
+em { font-family: 'Fraunces', serif; font-style: italic; font-weight: 350; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- READING PROGRESS ---------- */
+.progress {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--t-acc);
+  z-index: 200;
+  transition: width 0.1s linear;
+}
+
+/* ---------- HEADER ---------- */
+.site-head {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 90;
+  padding: 18px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  background: var(--t-surf);
+  border-bottom: 1px solid var(--t-border);
+  transition: background 0.6s var(--ease-soft), border-color 0.6s var(--ease-soft);
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Fraunces', serif; font-weight: 400;
+  font-size: 1.05rem; letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.brand-mark {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--s-secure), var(--s-anxious), var(--s-fearful), var(--s-dismissive), var(--s-secure));
+  position: relative;
+}
+.brand-mark::after {
+  content: ''; position: absolute; inset: 6px;
+  border-radius: 50%; background: var(--t-bg);
+}
+.nav-links {
+  display: flex; gap: 4px; list-style: none;
+}
+.nav-links a {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 0.86rem; font-weight: 500;
+  border-radius: var(--r-pill);
+  color: var(--t-mute);
+  transition: all 0.3s var(--ease);
+  letter-spacing: 0.01em;
+}
+.nav-links a:hover { color: var(--t-text); background: var(--t-surf-2); }
+.nav-links a.active { color: var(--t-text); }
+
+/* Theme switcher */
+.theme-switch {
+  display: flex; gap: 6px;
+  padding: 4px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-pill);
+  backdrop-filter: blur(12px);
+}
+.theme-btn {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--t-border);
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  position: relative;
+  background: transparent;
+}
+.theme-btn::after {
+  content: ''; position: absolute; inset: 3px;
+  border-radius: 50%;
+  transition: transform 0.4s var(--ease);
+}
+.theme-btn[data-set="linen"] { background: #f1ebde; }
+.theme-btn[data-set="linen"]::after { background: linear-gradient(135deg, #b85a2a, #6b8a52); }
+.theme-btn[data-set="obsidian"] { background: #0a0d14; }
+.theme-btn[data-set="obsidian"]::after { background: linear-gradient(135deg, #7fc0d4, #d6a878); }
+.theme-btn[data-set="aurora"] { background: #0c0818; }
+.theme-btn[data-set="aurora"]::after { background: linear-gradient(135deg, #cb7bdd, #5cd9c0); }
+.theme-btn[data-set="bone"] { background: #f7f6f4; }
+.theme-btn[data-set="bone"]::after { background: linear-gradient(135deg, #161616, #888); }
+.theme-btn.active { transform: scale(1.15); }
+.theme-btn:hover { transform: scale(1.18); }
+.theme-btn.active::after { transform: scale(0.9); }
+
+/* ---------- LAYOUT ---------- */
+section { padding: 140px 32px; position: relative; }
+.container { max-width: 1240px; margin: 0 auto; }
+.container-narrow { max-width: 820px; margin: 0 auto; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t-mute);
+  margin-bottom: 28px;
+}
+.section-label::before {
+  content: ''; width: 28px; height: 1px; background: var(--t-acc);
+}
+
+.section-title {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin-bottom: 28px;
+  font-weight: 320;
+  font-variation-settings: "SOFT" 30, "opsz" 144;
+}
+.section-title em {
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+}
+
+.section-intro {
+  font-size: 1.15rem; line-height: 1.7;
+  color: var(--t-mute);
+  max-width: 680px;
+  margin-bottom: 80px;
+  font-weight: 400;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 160px 32px 120px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  z-index: 0; pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: drift 24s var(--ease-soft) infinite alternate;
+}
+.orb-1 { width: 480px; height: 480px; background: var(--s-secure); top: -10%; left: -5%; }
+.orb-2 { width: 380px; height: 380px; background: var(--s-fearful); top: 20%; right: -10%; animation-delay: -6s; }
+.orb-3 { width: 320px; height: 320px; background: var(--s-anxious); bottom: -5%; left: 30%; animation-delay: -12s; }
+.orb-4 { width: 280px; height: 280px; background: var(--s-dismissive); bottom: 10%; right: 20%; animation-delay: -18s; }
+
+[data-theme="obsidian"] .orb, [data-theme="aurora"] .orb { opacity: 0.35; }
+[data-theme="bone"] .orb { opacity: 0.12; }
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.1); }
+  100% { transform: translate(-30px, 40px) scale(0.95); }
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1240px; margin: 0 auto;
+  width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 8px 16px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-pill);
+  backdrop-filter: blur(14px);
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--t-mute);
+  margin-bottom: 40px;
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--s-secure);
+  animation: pulse 2.4s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.hero h1 {
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-weight: 280;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  margin-bottom: 36px;
+  font-variation-settings: "SOFT" 30, "opsz" 144;
+}
+.hero h1 em {
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  color: var(--t-acc);
+}
+.hero-sub {
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  max-width: 620px;
+  color: var(--t-mute);
+  line-height: 1.6;
+  margin-bottom: 60px;
+}
+.hero-meta {
+  display: flex; gap: 48px; flex-wrap: wrap;
+  padding-top: 36px;
+  border-top: 1px solid var(--t-border);
+  max-width: 720px;
+}
+.hero-meta-item .num {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem; font-weight: 320;
+  display: block; line-height: 1;
+  margin-bottom: 6px;
+  font-variation-settings: "SOFT" 50, "opsz" 144;
+}
+.hero-meta-item .lab {
+  font-size: 0.78rem; color: var(--t-mute);
+  letter-spacing: 0.06em;
+}
+
+.scroll-cue {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--t-mute);
+  font-size: 0.72rem; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.scroll-cue::after {
+  content: ''; width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--t-mute), transparent);
+  animation: scrollMove 2.4s infinite;
+}
+@keyframes scrollMove {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ---------- ORIGINS ---------- */
+.origins-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 60px;
+}
+.origin-card {
+  padding: 48px 40px;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+  position: relative;
+  transition: all 0.5s var(--ease);
+}
+.origin-card:hover { transform: translateY(-4px); border-color: var(--t-acc); }
+.origin-role {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--t-acc); margin-bottom: 16px;
+}
+.origin-name {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem; font-weight: 320;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  font-variation-settings: "SOFT" 40, "opsz" 96;
+}
+.origin-years {
+  font-family: 'Fraunces', serif; font-style: italic;
+  font-size: 0.95rem; color: var(--t-mute);
+  margin-bottom: 24px;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14;
+}
+.origin-card p { margin-bottom: 14px; }
+.origin-card p:last-child { margin-bottom: 0; }
+
+/* ---------- DIMENSIONS ---------- */
+.dimensions-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 40px;
+}
+.axis-list { list-style: none; }
+.axis-item {
+  padding: 28px 0;
+  border-top: 1px solid var(--t-border);
+}
+.axis-item:last-child { border-bottom: 1px solid var(--t-border); }
+.axis-q {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--t-acc);
+  margin-top: 8px;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14;
+}
+.axis-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem; font-weight: 350;
+  letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+
+.quadrant {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+  padding: 60px;
+}
+.quad-cell {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s var(--ease);
+  border-radius: var(--r-md);
+}
+.quad-cell:hover { background: var(--t-surf-2); }
+.quad-cell .qmark {
+  width: 14px; height: 14px; border-radius: 50%;
+  margin-bottom: 14px;
+  transition: transform 0.4s var(--ease);
+}
+.quad-cell:hover .qmark { transform: scale(1.5); }
+.quad-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem; font-weight: 350;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.quad-tag {
+  font-size: 0.74rem;
+  color: var(--t-mute);
+  letter-spacing: 0.06em;
+}
+.quad-secure { background: linear-gradient(135deg, transparent, rgba(107, 138, 82, 0.08)); }
+.quad-secure .qmark { background: var(--s-secure); }
+.quad-anxious { background: linear-gradient(135deg, transparent, rgba(201, 96, 58, 0.08)); }
+.quad-anxious .qmark { background: var(--s-anxious); }
+.quad-dismissive { background: linear-gradient(135deg, transparent, rgba(91, 135, 164, 0.08)); }
+.quad-dismissive .qmark { background: var(--s-dismissive); }
+.quad-fearful { background: linear-gradient(135deg, transparent, rgba(134, 98, 196, 0.08)); }
+.quad-fearful .qmark { background: var(--s-fearful); }
+
+.axis-label {
+  position: absolute;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--t-mute);
+}
+.axis-label.top { top: 18px; left: 50%; transform: translateX(-50%); }
+.axis-label.bottom { bottom: 18px; left: 50%; transform: translateX(-50%); }
+.axis-label.left { left: 18px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left center; }
+.axis-label.right { right: 18px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: right center; }
+
+/* ---------- STYLES DEEP DIVE ---------- */
+.styles-stack { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+.style-block {
+  position: relative;
+  padding: 80px 56px;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: all 0.6s var(--ease);
+}
+.style-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--style-color, var(--t-acc));
+}
+.style-block::after {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--style-color), transparent 70%);
+  opacity: 0.10;
+  pointer-events: none;
+}
+.style-secure { --style-color: var(--s-secure); --style-color-2: var(--s-secure-2); }
+.style-anxious { --style-color: var(--s-anxious); --style-color-2: var(--s-anxious-2); }
+.style-dismissive { --style-color: var(--s-dismissive); --style-color-2: var(--s-dismissive-2); }
+.style-fearful { --style-color: var(--s-fearful); --style-color-2: var(--s-fearful-2); }
+
+.style-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 40px; margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.style-num {
+  font-family: 'Fraunces', serif;
+  font-size: 0.9rem; font-weight: 400;
+  color: var(--style-color);
+  letter-spacing: 0.18em;
+  margin-bottom: 18px;
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.style-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 280;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-variation-settings: "SOFT" 30, "opsz" 144;
+}
+.style-title em {
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  color: var(--style-color);
+}
+.style-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  color: var(--t-mute);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.style-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--style-color); }
+
+.style-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+}
+
+.feeling-label, .char-label, .sci-label {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--style-color);
+  margin-bottom: 18px;
+}
+.feeling-text {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem; font-weight: 320;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--t-text);
+  margin-bottom: 28px;
+  font-variation-settings: "SOFT" 60, "opsz" 48;
+}
+.feeling-text em {
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48;
+  color: var(--style-color);
+}
+.body-text { margin-bottom: 20px; }
+
+.char-list { list-style: none; margin-bottom: 32px; }
+.char-list li {
+  padding: 18px 0;
+  border-top: 1px solid var(--t-border);
+  font-size: 0.95rem;
+}
+.char-list li:last-child { border-bottom: 1px solid var(--t-border); }
+.char-list strong {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  color: var(--style-color);
+  margin-bottom: 4px;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.char-list span { color: var(--t-mute); font-style: italic; }
+
+.sci-block {
+  padding: 28px;
+  background: var(--t-surf-2);
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--style-color);
+}
+
+/* ---------- TRAJECTORY / DYNAMICS ---------- */
+.trajectory {
+  background: var(--t-elev);
+  border-top: 1px solid var(--t-border);
+  border-bottom: 1px solid var(--t-border);
+}
+.traj-intro {
+  font-family: 'Fraunces', serif;
+  font-size: 1.45rem; font-weight: 320;
+  line-height: 1.5;
+  color: var(--t-text);
+  max-width: 780px;
+  margin-bottom: 60px;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 60, "opsz" 48;
+}
+.traj-intro em { color: var(--s-secure); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48; }
+
+.pairings-stack { display: flex; flex-direction: column; gap: 40px; margin-top: 40px; }
+.pairing-block {
+  padding: 48px 40px;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.6s var(--ease);
+}
+.pairing-block:hover { transform: translateY(-3px); }
+
+.pairing-tag {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 8px 16px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-pill);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  color: var(--t-acc);
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14;
+}
+.pairing-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+  line-height: 1.1;
+  font-variation-settings: "SOFT" 40, "opsz" 96;
+}
+.pairing-title em {
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 96;
+  color: var(--t-acc);
+}
+.pairing-feelings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--t-border);
+}
+.feel-box .feel-label {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t-mute);
+  margin-bottom: 14px;
+}
+.feel-box .feel-text {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem; font-weight: 350;
+  line-height: 1.5; color: var(--t-text);
+  font-variation-settings: "SOFT" 60, "opsz" 48;
+  margin-bottom: 20px;
+}
+.feel-box.anxious .feel-label { color: var(--s-anxious); }
+.feel-box.secure .feel-label { color: var(--s-secure); }
+.feel-box.dismissive .feel-label { color: var(--s-dismissive); }
+.feel-box.fearful .feel-label { color: var(--s-fearful); }
+
+.quote-block {
+  padding-left: 20px;
+  border-left: 3px solid var(--t-acc);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--t-text);
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48;
+  margin-bottom: 20px;
+}
+.quote-secure { border-color: var(--s-secure); }
+.quote-anxious { border-color: var(--s-anxious); }
+.quote-dismissive { border-color: var(--s-dismissive); }
+.quote-fearful { border-color: var(--s-fearful); }
+
+.pairing-dynamic h4 {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t-acc); margin-bottom: 16px;
+  font-family: 'Inter', sans-serif;
+}
+.pairing-dynamic p { margin-bottom: 16px; }
+.pairing-dynamic p:last-child { margin-bottom: 0; }
+
+.traj-phases {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+  margin-top: 32px;
+  padding-top: 20px;
+}
+.traj-phases::before {
+  content: '';
+  position: absolute;
+  top: 48px; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(to right, var(--s-secure), var(--s-anxious), var(--s-anxious-2), var(--t-mute));
+  opacity: 0.5;
+  z-index: 0;
+}
+.phase {
+  position: relative;
+  z-index: 1;
+  padding-top: 60px;
+}
+.phase-num {
+  position: absolute; top: 0; left: 0;
+  width: 56px; height: 56px;
+  background: var(--t-elev);
+  border: 1px solid var(--t-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem; font-weight: 400;
+  color: var(--s-secure);
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.phase-2 .phase-num { color: var(--s-anxious); border-color: var(--s-anxious); }
+.phase-3 .phase-num { color: var(--s-anxious-2); border-color: var(--s-anxious-2); }
+.phase-4 .phase-num { color: var(--t-mute); border-color: var(--t-mute); }
+.phase-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem; font-weight: 350;
+  margin-bottom: 6px;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.phase-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--t-mute);
+  margin-bottom: 16px;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14;
+}
+.phase p { font-size: 0.92rem; line-height: 1.65; color: var(--t-mute); }
+
+.pairing-research {
+  margin-top: 36px;
+  padding: 28px 32px;
+  background: var(--t-surf-2);
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--t-acc);
+}
+.pairing-research h4 {
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--t-acc);
+  margin-bottom: 18px;
+  font-family: 'Inter', sans-serif;
+}
+.pairing-research p { font-size: 0.95rem; color: var(--t-mute); margin-bottom: 12px; }
+.pairing-research p:last-child { margin-bottom: 0; }
+
+.pairing-growth {
+  margin-top: 36px;
+  padding: 32px 40px;
+  background: linear-gradient(135deg, var(--t-surf-2), var(--t-surf));
+  border-radius: var(--r-lg);
+  border: 1px solid var(--t-border);
+}
+.pairing-growth h4 {
+  font-size: 1.3rem; font-weight: 350;
+  margin-bottom: 24px;
+  color: var(--t-text);
+  font-family: 'Fraunces', serif;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.growth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.growth-col p {
+  font-size: 0.95rem; line-height: 1.65;
+  color: var(--t-mute);
+  margin-bottom: 12px;
+}
+.growth-col strong { 
+  color: var(--t-acc); 
+  font-family: 'Fraunces', serif; 
+  font-weight: 400; 
+  font-size: 1rem;
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+
+/* ---------- LIFESPAN ---------- */
+.lifespan-stack { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+.lifespan-block {
+  padding: 64px 48px;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.lifespan-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--style-color, var(--t-acc));
+}
+.lifespan-block::after {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--style-color), transparent 70%);
+  opacity: 0.10;
+  pointer-events: none;
+}
+.lifespan-header { margin-bottom: 40px; }
+.lifespan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  position: relative;
+}
+.lifespan-grid::before {
+  content: '';
+  position: absolute;
+  top: 24px; bottom: 0; left: 15%; right: 15%;
+  background: linear-gradient(to bottom, var(--style-color), transparent);
+  opacity: 0.2;
+  z-index: 0;
+}
+.life-phase {
+  position: relative;
+  z-index: 1;
+  padding: 24px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s var(--ease);
+}
+.life-phase:hover { transform: translateY(-4px); }
+.life-phase-num {
+  font-family: 'Fraunces', serif;
+  font-size: 0.8rem; font-weight: 400;
+  color: var(--style-color);
+  letter-spacing: 0.18em;
+  margin-bottom: 8px;
+  display: block;
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.life-phase-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem; font-weight: 350;
+  margin-bottom: 12px;
+  letter-spacing: -0.015em;
+  color: var(--t-text);
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.life-phase-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--t-mute);
+}
+.life-phase-text em {
+  color: var(--style-color);
+  font-weight: 400;
+}
+
+/* ---------- COMPARISON ---------- */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--t-surf);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--t-border);
+  backdrop-filter: blur(20px);
+}
+.compare-table th, .compare-table td {
+  padding: 22px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--t-border);
+  vertical-align: top;
+}
+.compare-table thead th {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  background: var(--t-surf-2);
+  letter-spacing: -0.01em;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.compare-table thead th .swatch {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 8px;
+  vertical-align: middle;
+}
+.compare-table th .sub {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--t-mute);
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+.compare-table tbody th {
+  font-weight: 500;
+  font-size: 0.86rem;
+  color: var(--t-mute);
+  width: 200px;
+  letter-spacing: 0.04em;
+}
+.compare-table td {
+  font-size: 0.92rem;
+  color: var(--t-text);
+}
+.compare-table tbody tr:last-child th,
+.compare-table tbody tr:last-child td { border-bottom: none; }
+.compare-table tbody tr:hover { background: var(--t-surf-2); }
+
+/* ---------- HEALING ---------- */
+.healing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 60px;
+  align-items: start;
+}
+.healing-text p { margin-bottom: 22px; }
+.healing-text .lead {
+  font-family: 'Fraunces', serif;
+  font-size: 1.45rem; font-weight: 320;
+  line-height: 1.4;
+  color: var(--t-text);
+  margin-bottom: 28px;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 60, "opsz" 48;
+}
+.healing-text .lead em { color: var(--t-acc); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48; }
+
+.healing-card {
+  padding: 40px;
+  background: var(--t-surf);
+  border: 1px solid var(--t-border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+}
+.healing-card h4 {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t-acc);
+  margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+}
+.pathways { list-style: none; }
+.pathways li {
+  padding: 18px 0;
+  border-top: 1px solid var(--t-border);
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.pathways li:last-child { border-bottom: 1px solid var(--t-border); }
+.path-num {
+  font-family: 'Fraunces', serif;
+  font-size: 1.2rem; font-weight: 320;
+  color: var(--t-acc);
+  font-variation-settings: "SOFT" 50, "opsz" 14;
+}
+.path-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400; font-size: 1.05rem;
+  margin-bottom: 4px;
+  font-variation-settings: "SOFT" 50, "opsz" 48;
+}
+.path-desc { font-size: 0.9rem; color: var(--t-mute); }
+
+/* ---------- FOOTER ---------- */
+.site-foot {
+  padding: 100px 32px 60px;
+  border-top: 1px solid var(--t-border);
+  background: var(--t-elev);
+}
+.foot-inner {
+  max-width: 1240px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+}
+.foot-quote {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem; font-weight: 320;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 60, "opsz" 96;
+}
+.foot-quote em { color: var(--t-acc); font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 96; }
+.foot-attrib {
+  margin-top: 18px;
+  font-size: 0.85rem; color: var(--t-mute);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 14;
+}
+.foot-col h5 {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--t-mute);
+  margin-bottom: 18px;
+  font-family: 'Inter', sans-serif;
+}
+.foot-col ul { list-style: none; }
+.foot-col li { margin-bottom: 10px; font-size: 0.9rem; color: var(--t-text); }
+.foot-col a:hover { color: var(--t-acc); }
+.foot-base {
+  max-width: 1240px; margin: 60px auto 0;
+  padding-top: 30px;
+  border-top: 1px solid var(--t-border);
+  display: flex; justify-content: space-between;
+  font-size: 0.78rem; color: var(--t-mute);
+}
+
+/* ---------- REVEAL ANIMATIONS ---------- */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+.reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: 0.35s; }
+
+/* ---------- BACK TO TOP ---------- */
+.to-top {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 48px; height: 48px;
+  background: var(--t-surf-2);
+  border: 1px solid var(--t-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transition: all 0.4s var(--ease);
+  backdrop-filter: blur(14px);
+  z-index: 80;
+  color: var(--t-text);
+}
+.to-top.show { opacity: 1; pointer-events: auto; }
+.to-top:hover { transform: translateY(-3px); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .site-head { padding: 14px 20px; }
+  section { padding: 100px 20px; }
+  .hero { padding: 130px 20px 100px; }
+  .origins-grid, .dimensions-wrap, .style-grid, .healing-grid, .foot-inner { grid-template-columns: 1fr; gap: 32px; }
+  .traj-phases { grid-template-columns: 1fr 1fr; }
+  .pairing-feelings, .growth-grid { grid-template-columns: 1fr; }
+  .lifespan-grid { grid-template-columns: 1fr; }
+  .lifespan-grid::before { display: none; }
+  .style-block, .pairing-block, .lifespan-block { padding: 48px 28px; }
+  .quadrant { padding: 50px 30px; }
+  .compare-table { font-size: 0.85rem; }
+  .compare-table th, .compare-table td { padding: 14px 12px; }
+  .compare-table tbody th { width: 110px; }
+  .foot-base { flex-direction: column; gap: 12px; }
+}
+@media (max-width: 600px) {
+  .traj-phases { grid-template-columns: 1fr; }
+  .traj-phases::before { display: none; }
+  .hero-meta { gap: 28px; }
+  .style-block, .pairing-block, .lifespan-block { padding: 36px 20px; }
+  .compare-table thead { display: none; }
+  .compare-table, .compare-table tbody, .compare-table tr, .compare-table td, .compare-table tbody th { display: block; }
+  .compare-table tr { padding: 16px 0; border-bottom: 1px solid var(--t-border); }
+  .compare-table tbody th { width: auto; padding: 6px 12px; color: var(--t-acc); }
+  .compare-table td { border: none; padding: 4px 12px; }
+  .compare-table td::before { content: attr(data-label) ' '; font-weight: 600; color: var(--t-mute); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01s !important; }
+  .reveal, .reveal-stagger > * { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="site-head">
+  <a href="#top" class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span>Attachment</span>
+  </a>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#dimensions">Dimensions</a></li>
+      <li><a href="#styles">Styles</a></li>
+      <li><a href="#dynamics">Dynamics</a></li>
+      <li><a href="#lifespan">Lifespan</a></li>
+      <li><a href="#healing">Healing</a></li>
+    </ul>
+  </nav>
+  <div class="theme-switch" role="group" aria-label="Theme selector">
+    <button class="theme-btn active" data-set="linen" aria-label="Linen theme"></button>
+    <button class="theme-btn" data-set="obsidian" aria-label="Obsidian theme"></button>
+    <button class="theme-btn" data-set="aurora" aria-label="Aurora theme"></button>
+    <button class="theme-btn" data-set="bone" aria-label="Bone theme"></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+    <span class="orb orb-4"></span>
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow"><span class="dot"></span>A field guide to how we love</span>
+    <h1>The Architecture<br>of <em>Connection</em></h1>
+    <p class="hero-sub">Attachment theory is not a diagnosis. It is a map of how we learned to love — and a compass for how we might learn again, with more mercy.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="num">04</span>
+        <span class="lab">Attachment styles</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="num">02</span>
+        <span class="lab">Underlying dimensions</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="num">75+</span>
+        <span class="lab">Years of research</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="num">∞</span>
+        <span class="lab">Possibility for change</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll to begin</div>
+</section>
+
+<!-- ========== ORIGINS ========== -->
+<section id="origins">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">01 — Foundations</span>
+      <h2 class="section-title">A theory built from <em>orphans</em>, geese,<br>and twenty-minute separations.</h2>
+      <p class="section-intro">Before we explore these patterns, a crucial distinction must be made: while attachment theory explains our patterns and behaviors, it does not excuse them. Our early environments may have shaped our nervous systems, but we are ultimately responsible for our own choices, actions, and reactions. Understanding your attachment style is the beginning of accountability, not the end of it.</p>
+      <p class="section-intro" style="margin-top: 20px;">Attachment theory began as a refusal — a refusal to believe that children bond with their mothers only because mothers feed them. What followed was seventy-five years of research that fundamentally redrew how we understand love.</p>
+    </div>
+
+    <div class="origins-grid reveal-stagger">
+      <article class="origin-card">
+        <div class="origin-role">The Architect</div>
+        <h3 class="origin-name">John Bowlby</h3>
+        <div class="origin-years">1907 — 1990</div>
+        <p>A British psychoanalyst and psychiatrist who noticed, while working with emotionally disturbed children after World War II, that separation from primary caregivers produced profound and lasting psychological wounds — far deeper than behaviorist theories of the time could account for.</p>
+        <p>Drawing on <em>Konrad Lorenz's</em> work on imprinting in geese, evolutionary biology, and early cybernetics, Bowlby proposed something radical: attachment is a biological survival system, hardwired into the human brain, as essential to development as food or warmth.</p>
+        <p>His three-volume <em>Attachment and Loss</em> (1969, 1973, 1980) argued that an infant's repeated experiences with a caregiver become an <strong>internal working model</strong> — a template of self, other, and relationship carried into every future bond.</p>
+      </article>
+
+      <article class="origin-card">
+        <div class="origin-role">The Pioneer</div>
+        <h3 class="origin-name">Mary Ainsworth</h3>
+        <div class="origin-years">1913 — 1999</div>
+        <p>An American-Canadian developmental psychologist who gave Bowlby's theory its empirical spine. After observing mother–infant pairs in Uganda in 1954, Ainsworth developed the <em>Strange Situation</em> in 1969 — a twenty-minute laboratory procedure in which a 12-to-18-month-old child experiences two brief separations from and reunions with their caregiver.</p>
+        <p>What she observed was profound: children's responses fell into predictable, classifiable patterns. These became the original three categories — <strong>Secure (B)</strong>, <strong>Anxious-Ambivalent (C)</strong>, and <strong>Avoidant (A)</strong>.</p>
+        <p>In 1986, <em>Mary Main</em> and <em>Judith Solomon</em> added a fourth — <strong>Disorganized (D)</strong> — for children whose behavior showed no coherent strategy: freezing, rocking, approaching the caregiver with averted gaze. Then, in 1987, <em>Cindy Hazan</em> and <em>Phillip Shaver</em> extended the framework to adult romantic love. In 1991, <em>Kim Bartholomew</em> and <em>Leonard Horowitz</em> restructured it into the four-style model used today — organized along two dimensions.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DIMENSIONS ========== -->
+<section id="dimensions">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">02 — The Two Axes</span>
+      <h2 class="section-title">Attachment is a <em>map</em>,<br>not a personality test.</h2>
+      <p class="section-intro">Everyone sits somewhere on this map, and most of us shift across our lives. The two dimensions beneath all four styles are not abstract — they are the answers your nervous system learned, very early, to two simple questions.</p>
+    </div>
+
+    <div class="dimensions-wrap">
+      <div class="reveal">
+        <ul class="axis-list">
+          <li class="axis-item">
+            <div class="axis-name">Anxiety</div>
+            <p style="color:var(--t-mute); margin-bottom:8px;">The degree to which a person fears rejection, abandonment, or not being enough. This reflects the internal model of self.</p>
+            <div class="axis-q">"Am I worthy of being loved?"</div>
+          </li>
+          <li class="axis-item">
+            <div class="axis-name">Avoidance</div>
+            <p style="color:var(--t-mute); margin-bottom:8px;">The degree to which a person is uncomfortable with closeness, dependence, or vulnerability. This reflects the internal model of others.</p>
+            <div class="axis-q">"Can I trust others to be there for me?"</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="quadrant reveal">
+        <span class="axis-label top">High Anxiety</span>
+        <span class="axis-label bottom">Low Anxiety</span>
+        <span class="axis-label left">High Avoidance</span>
+        <span class="axis-label right">Low Avoidance</span>
+
+        <a href="#style-fearful" class="quad-cell quad-fearful">
+          <span class="qmark"></span>
+          <div class="quad-name">Fearful-Avoidant</div>
+          <div class="quad-tag">High / High</div>
+        </a>
+        <a href="#style-anxious" class="quad-cell quad-anxious">
+          <span class="qmark"></span>
+          <div class="quad-name">Anxious-Ambivalent/Preoccupied</div>
+          <div class="quad-tag">High / Low</div>
+        </a>
+        <a href="#style-dismissive" class="quad-cell quad-dismissive">
+          <span class="qmark"></span>
+          <div class="quad-name">Dismissive-Avoidant</div>
+          <div class="quad-tag">Low / High</div>
+        </a>
+        <a href="#style-secure" class="quad-cell quad-secure">
+          <span class="qmark"></span>
+          <div class="quad-name">Secure</div>
+          <div class="quad-tag">Low / Low</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STYLES DEEP DIVE ========== -->
+<section id="styles">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">03 — The Four Styles</span>
+      <h2 class="section-title">Four ways the <em>heart</em><br>learned to protect itself.</h2>
+      <p class="section-intro">Each style began as a brilliant adaptation — a child's best solution to the caregiver they were given. What we call "insecure attachment" in adults is, in origin, a survival strategy that outlived its context.</p>
+    </div>
+
+    <div class="styles-stack">
+
+      <!-- SECURE -->
+      <article class="style-block style-secure reveal" id="style-secure">
+        <div class="style-header">
+          <div>
+            <div class="style-num">STYLE 01 — LOW ANXIETY · LOW AVOIDANCE</div>
+            <h3 class="style-title">Secure <em>Attachment</em></h3>
+          </div>
+          <span class="style-tag"><span class="dot"></span>~56% of adults</span>
+        </div>
+        <div class="style-grid">
+          <div>
+            <div class="feeling-label">The Feeling</div>
+            <p class="feeling-text">To be secure is not to feel nothing. It is to feel the full weight of vulnerability — the ache of missing someone, the sting of a sharp word, the dread of loss — and to remain <em>grounded in your own worthiness</em>. Secure people are not numb. They are anchored.</p>
+            <p class="body-text">When a partner pulls away, a secure person feels it. The ping lands. But they carry an internal story that absorbs the blow: <em>I am lovable. This is a moment, not a verdict.</em> They ask. They repair. They stay curious. They do not abandon themselves to chase, and they do not abandon the relationship to escape.</p>
+            <p class="body-text">Intimacy, for the secure person, is a harbor rather than a threat. They believe they are worthy of care and that others are generally reliable — not because they are naive, but because their early experience taught them that needs are real, that they matter, and that someone will probably show up.</p>
+          </div>
+          <div>
+            <div class="char-label">Key Characteristics</div>
+            <ul class="char-list">
+              <li><strong>Self-View</strong><span>"I am worthy of love and care."</span></li>
+              <li><strong>Other-View</strong><span>"Others are generally trustworthy and responsive."</span></li>
+              <li><strong>Dynamic</strong><span>Comfortable with interdependence — a balance of closeness and autonomy.</span></li>
+              <li><strong>Stress Response</strong><span>Seeks support when distressed; offers it when a partner is.</span></li>
+              <li><strong>Conflict</strong><span>Stays engaged. Repairs. Does not catastrophize.</span></li>
+            </ul>
+            <div class="sci-label">Scientific Basis</div>
+            <div class="sci-block">
+              <p style="font-size:0.92rem; color:var(--t-mute);">Develops from caregivers who were <strong>consistently available, sensitive to the child's signals, and emotionally responsive</strong> — what Ainsworth called the "secure base." This isn't perfection; it's "good enough" parenting (Winnicott), where ruptures are followed by repair. The child learns: distress is survivable, needs are legitimate, and people come back.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ANXIOUS-AMBIVALENT/PREOCCUPIED -->
+      <article class="style-block style-anxious reveal" id="style-anxious">
+        <div class="style-header">
+          <div>
+            <div class="style-num">STYLE 02 — HIGH ANXIETY · LOW AVOIDANCE</div>
+            <h3 class="style-title">Anxious-<em>Ambivalent/Preoccupied</em></h3>
+          </div>
+          <span class="style-tag"><span class="dot"></span>~20% of adults</span>
+        </div>
+        <div class="style-grid">
+          <div>
+            <div class="feeling-label">The Feeling</div>
+            <p class="feeling-text">Loving with an anxious-ambivalent/preoccupied attachment is like loving with your <em>skin off</em>. Every shift in tone is data. Every delayed text is a story—usually a story about your own inadequacy. The hyperactivation is not a choice; it is a body state. Love becomes an <em>emotional battlefield</em> where you desperately want connection, but when it is offered, it is often met with resentment, criticism, or resistance.</p>
+            <p class="body-text">A slow adrenaline drip turns a casual conversation into a high-stakes negotiation. The anxious person feels a persistent, nagging hunger for intimacy, paired with a devastating fear: that they are <em>too much</em> and <em>not enough</em> at the same time. While the preoccupied side of this style clings and chases, the ambivalent side externalizes their anxiety through anger and blame. They may pick fights to test devotion, punishing the partner for the abandonment they feared even while the partner is standing right in front of them.</p>
+            <p class="body-text">Under stress, the attachment system <strong>hyperactivates</strong> — a term used by Mikulincer and Shaver. Protest behaviors emerge: excessive calling and texting, escalating demands, withdrawing to test whether the partner will pursue, or resisting the partner's attempts to repair. These behaviors are not manipulations. They are the amplified cries of the child who learned, long ago, that quiet meant forgotten.</p>
+          </div>
+          <div>
+            <div class="char-label">Key Characteristics</div>
+            <ul class="char-list">
+              <li><strong>Self-View</strong><span>"I am not quite enough / I am giving too much."</span></li>
+              <li><strong>Other-View</strong><span>"Others are my source of safety, but they are unreliable and frustratingly blind to my needs."</span></li>
+              <li><strong>Dynamic</strong><span>High need for proximity and reassurance. May demand connection but reject it when offered.</span></li>
+              <li><strong>Stress Response</strong><span>Hyperactivation. Protest behavior. Rumination. Anger and blame.</span></li>
+              <li><strong>Conflict</strong><span>Pursues, escalates, resists repair, seeks immediate resolution.</span></li>
+            </ul>
+            <div class="sci-label">Scientific Basis</div>
+            <div class="sci-block">
+              <p style="font-size:0.92rem; color:var(--t-mute);">Stems from <strong>inconsistent, intrusive, or unpredictable caregiving</strong> (Mikulincer & Shaver; Cassidy & Berlin, 1994). The caregiver's attention was sometimes warm but often cold, distracted, or brought with friction. The child learns that love is real but unreliable, and that they must amplify their distress signals—either through clinging or angry resistance—to ensure the caregiver notices. The anger becomes a magnet for engagement.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISMISSIVE -->
+      <article class="style-block style-dismissive reveal" id="style-dismissive">
+        <div class="style-header">
+          <div>
+            <div class="style-num">STYLE 03 — LOW ANXIETY · HIGH AVOIDANCE</div>
+            <h3 class="style-title">Dismissive-<em>Avoidant</em></h3>
+          </div>
+          <span class="style-tag"><span class="dot"></span>~23% of adults</span>
+        </div>
+        <div class="style-grid">
+          <div>
+            <div class="feeling-label">The Feeling</div>
+            <p class="feeling-text">For the dismissive person, autonomy is not a preference — it is a <em>life raft</em>. Emotional closeness registers somewhere between uncomfortable and intolerable, like wearing a coat that fits someone else.</p>
+            <p class="body-text">The instinct, when intimacy deepens, is to find the exit while staying in the room. To focus on the partner's flaws. To suddenly remember the work deadline. To become indispensable and unavailable at the same time. To keep the relationship at a temperature where nothing is asked of them that they cannot withhold.</p>
+            <p class="body-text">This is not coldness. It is a particular form of warmth that has been armored. <strong>Deactivating strategies</strong> — a term from attachment research — keep the attachment system offline: prioritizing independence, dismissing the value of closeness, secret-keeping, idealizing self-reliance. Studies show dismissive individuals often <em>do</em> show physiological arousal during separation — they feel the loss; they have just learned to override the signal.</p>
+          </div>
+          <div>
+            <div class="char-label">Key Characteristics</div>
+            <ul class="char-list">
+              <li><strong>Self-View</strong><span>"I am self-sufficient. I don't need anyone."</span></li>
+              <li><strong>Other-View</strong><span>"Others are intrusive, demanding, or unreliable."</span></li>
+              <li><strong>Dynamic</strong><span>Maintains distance. Prioritizes autonomy over intimacy.</span></li>
+              <li><strong>Stress Response</strong><span>Deactivation. Withdrawal. Emotional shutdown.</span></li>
+              <li><strong>Conflict</strong><span>Distances, stonewalls, exits, focuses on flaws.</span></li>
+            </ul>
+            <div class="sci-label">Scientific Basis</div>
+            <div class="sci-block">
+              <p style="font-size:0.92rem; color:var(--t-mute);">Develops from caregivers who were <strong>reliably unresponsive</strong> to emotional needs, dismissive of distress, or who encouraged "independence" prematurely. The child learns that signaling for help is futile — or worse, that it brings rejection. So they stop signaling. They build a self that does not need, because needing was never safe.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- FEARFUL -->
+      <article class="style-block style-fearful reveal" id="style-fearful">
+        <div class="style-header">
+          <div>
+            <div class="style-num">STYLE 04 — HIGH ANXIETY · HIGH AVOIDANCE</div>
+            <h3 class="style-title">Fearful-<em>Avoidant</em></h3>
+          </div>
+          <span class="style-tag"><span class="dot"></span>~5% of adults</span>
+        </div>
+        <div class="style-grid">
+          <div>
+            <div class="feeling-label">The Feeling</div>
+            <p class="feeling-text"><em>Come here. No — go away. No — wait. Don't leave. Don't come closer.</em></p>
+            <p class="body-text">Fearful-avoidant attachment is a love that contradicts itself in real time. The longing is real and enormous. So is the terror. Intimacy activates two incompatible survival systems at once: the drive to attach and the drive to flee. The result is a relationship dance that looks erratic from the outside — and feels like drowning from the inside.</p>
+            <p class="body-text">The fearful-avoidant person pursues intensely when distance threatens, then freezes or pushes away when closeness actually arrives. They want to be known and fear being seen. They crave reassurance and distrust it when it comes. They are not indecisive — they are <em>wired for two opposing truths at once</em>.</p>
+            <p class="body-text">This is sometimes called <strong>Disorganized</strong> attachment in the developmental literature — a name that captures the absence of a coherent strategy. There is no single workable approach to the caregiver, because the caregiver was, heartbreakingly, both the source of fear and the only source of safety.</p>
+          </div>
+          <div>
+            <div class="char-label">Key Characteristics</div>
+            <ul class="char-list">
+              <li><strong>Self-View</strong><span>"I am broken, unlovable, or fundamentally flawed."</span></li>
+              <li><strong>Other-View</strong><span>"Others provide comfort — and cause pain. I cannot predict which."</span></li>
+              <li><strong>Dynamic</strong><span>Oscillates between anxious pursuit and avoidant withdrawal.</span></li>
+              <li><strong>Stress Response</strong><span>Disorganized. Clinging followed by freezing or flight.</span></li>
+              <li><strong>Conflict</strong><span>Approach-avoidance spiral. High emotional flooding.</span></li>
+            </ul>
+            <div class="sci-label">Scientific Basis</div>
+            <div class="sci-block">
+              <p style="font-size:0.92rem; color:var(--t-mute);">Strongly linked to <strong>traumatic or frightening caregiving</strong> — abuse, neglect, or a caregiver whose own dysregulation made them a source of fear. Mary Main's research linked disorganized attachment to <em>unresolved trauma or loss</em> in the parent. The child faces an impossible biological paradox: the drive to seek safety from the very person who is frightening them. No coherent strategy can form. (Note: fearful-avoidance overlaps clinically with, but is not identical to, traits seen in complex PTSD and borderline personality organization.)</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRAJECTORY / DYNAMICS ========== -->
+<section id="dynamics" class="trajectory">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">04 — Relational Dynamics</span>
+      <h2 class="section-title">When the styles <em>collide</em>.<br>How the heart responds.</h2>
+      <p class="traj-intro">Attachment styles are not just individual traits; they are relational dances. How we feel, respond, and survive in love is dictated by the interaction of our nervous systems. Here is how each combination experiences the dance—backed by research, felt from the inside.</p>
+    </div>
+
+    <div class="pairings-stack">
+
+      <!-- SECURE × FEARFUL -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Secure × Fearful-Avoidant</div>
+        <h3 class="pairing-title">The Anchor and the <em>Storm</em></h3>
+        <div class="pairing-feelings">
+          <div class="feel-box secure">
+            <div class="feel-label">How Secure Feels</div>
+            <p class="feel-text">You feel like a yo-yo. When they pull away, you try to anchor the storm by being a steady base; when they return, you hope it will last. But the chronic instability eventually makes you question your own reality. You love them, but you feel that you cannot heal them, and the constant push-pull starts to erode your own secure baseline.</p>
+            <div class="quote-block quote-secure">
+              "I've started to hold my breath after the good nights. Not because I don't trust them — but because I've learned that the deepest connection is followed by the sharpest retreat. I feel like I'm loving someone through a strobe light: they're there, then they're gone, then they're there again."
+            </div>
+          </div>
+          <div class="feel-box fearful">
+            <div class="feel-label">How Fearful Feels</div>
+            <p class="feel-text">You feel simultaneously saved and terrified. The secure partner offers the love you always wanted, but intimacy triggers your deep-seated fear of betrayal. When they get close, you feel suffocated and judged; when they step back, you feel abandoned and panicked. You push away the very harbor you are desperately swimming toward.</p>
+            <div class="quote-block quote-fearful">
+              "I can feel myself doing it in real time — pushing them away and then panicking that they're going. It's like watching myself from outside my body. I know they haven't done anything wrong. I know they love me. But something in me won't let me have it."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>There is a popular myth that secure people stay calm indefinitely—that their baseline is <em>immunity</em> to a partner's chaos. The research tells a more honest story: chronic attachment stress destabilizes even secure individuals. The secure base is reciprocal by design; without reciprocity, it frays.</p>
+          <p>As the fearful-avoidant progresses and feels the relationship deepening, their shame often drives them to suggest friendship or tell their secure partner they deserve better. Even if the secure partner is willing to put in the effort and stay, the fearful-avoidant will often push them away. This is devastating, even for a secure partner. Because they are emotionally invested, being forced away when you are willing to stay and do anything—having the decision made for you—hurts anyone.</p>
+          
+          <div class="traj-phases reveal-stagger">
+            <div class="phase phase-1">
+              <div class="phase-num">1</div>
+              <h4 class="phase-title">The Buffer</h4>
+              <div class="phase-sub">The Patient Provider</div>
+              <p>Initially, the secure person views the partner's withdrawal as a wound to be healed. They provide a steady base — patience, consistency, warmth — assuming that if they are stable enough, the partner will eventually feel safe enough to open up. This phase can last months or years.</p>
+            </div>
+            <div class="phase phase-2">
+              <div class="phase-num">2</div>
+              <h4 class="phase-title">Situational Anxiety</h4>
+              <div class="phase-sub">The Mirror Effect</div>
+              <p>As time passes without reciprocity, the secure person begins to exhibit <em>situational anxiety</em>. They start overthinking texts. Wondering why the partner pulled away. They are mirroring the partner's insecurity — not because they are anxious, but because the relationship <em>is</em> anxious. The environment is objectively unstable.</p>
+            </div>
+            <div class="phase phase-3">
+              <div class="phase-num">3</div>
+              <h4 class="phase-title">The Reciprocity Audit</h4>
+              <div class="phase-sub">From Selfless to Self-Protective</div>
+              <p>Once invested, the secure person shifts from "helping" the partner to "auditing" the relationship. They stop asking <em>"How can I make them feel safe?"</em> and start asking <em>"Is my need for connection being met?"</em> This is a critical move from selfless support to self-protective evaluation.</p>
+            </div>
+            <div class="phase phase-4">
+              <div class="phase-num">4</div>
+              <h4 class="phase-title">The Decisive Exit</h4>
+              <div class="phase-sub">Or — Less Often — Evolution</div>
+              <p>Unlike an anxious person who may stay for years fearing being alone, the secure person reaches a breaking point. If the partner does not evolve or acknowledge the pattern, the secure person leaves. They do so with grief — but without the crushing belief that they are unlovable. They view the exit as a move toward a healthier connection, not as a verdict on their worth.</p>
+            </div>
+          </div>
+        </div>
+        <div class="pairing-research">
+          <h4>What the research actually says</h4>
+          <p>Studies by <strong>Mikulincer, Shaver</strong>, and colleagues on "security-based strategies" show that these strategies — seeking support, regulating emotion, repairing conflict — can be <em>exhausted</em> under chronic relational stress. The secure base Bowlby and Ainsworth described is not a one-way donation; it requires reciprocal functioning to remain stable.</p>
+          <p>When paired with a chronically disorganized partner, secure individuals show elevated cortisol, increased rumination, and protest behaviors that look, from the outside, indistinguishable from anxious attachment. Sue Johnson's work on <strong>attachment injury</strong> (Emotionally Focused Therapy) documents exactly this: a single devastating betrayal or chronic emotional unavailability can destabilize a previously secure bond.</p>
+          <p><strong>Key findings:</strong> Rholes et al. (2006) found that partners of fearful-avoidant individuals reported the lowest relationship satisfaction of any insecure pairing despite the fearful partner's moments of intense closeness. However, Steele et al. (2014) and Levy et al. (2011) demonstrated that consistent, non-reactive caregiving over extended periods (2+ years) can facilitate "earned security" in disorganized adults at rates comparable to therapeutic intervention — but only when the secure partner maintains their own wellbeing alongside the caregiving.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-secure);">For the Secure partner:</strong> Learning that your partner's withdrawal after closeness is not rejection — it's recovery. They're not leaving you; they're regrouping. The most powerful thing you can do is communicate availability without pursuit: "I'm here when you're ready" rather than "Why are you pulling away?"</p>
+              <p>Critical boundary: You must maintain your own support system outside this relationship. Secure partners who isolate themselves into the caregiving role become depleted, and depletion leads to resentment, which fearful-avoidant partners detect with extraordinary sensitivity — often interpreting it as the rejection they predicted all along (Fitzpatrick & Lafontaine, 2017).</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-fearful);">For the Fearful-Avoidant partner:</strong> The central practice is learning to tolerate safety. This sounds absurd until you've lived it — the moment things are good is the moment your nervous system starts searching for the threat. Building the capacity to stay present with care, with warmth, with someone who genuinely wants to know you, without fleeing or sabotaging, is the core developmental task.</p>
+              <p>Therapeutic support is not optional here — it's essential. The pattern of disorganized attachment typically involves early relational trauma, and the research consistently shows that earned security in fearful-avoidant adults requires both a stable relationship AND professional support (Wallin, 2007; Steele et al., 2014). Your partner's love creates the conditions for healing; therapy provides the tools.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECURE × ANXIOUS -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Secure × Anxious-Ambivalent/Preoccupied</div>
+        <h3 class="pairing-title">The Anchor and the <em>Wave</em></h3>
+        <div class="pairing-feelings">
+          <div class="feel-box secure">
+            <div class="feel-label">How Secure Feels</div>
+            <p class="feel-text">You feel deeply loved, but eventually, suffocated and battered. The constant need for reassurance feels like a test you didn't study for. If the anxious partner externalizes through anger, you feel constantly punished for things you didn't do. You want to give them the world, but their fear makes you feel like you are never doing enough. You begin to walk on eggshells, exhausted by the protest.</p>
+            <div class="quote-block quote-secure">
+              "I love them deeply. But I've started hesitating before I come home — not because I don't want to see them, but because I'm bracing for the question I'll have to answer about whether something is wrong. Sometimes nothing is wrong. But nothing being wrong doesn't stop the checking."
+            </div>
+          </div>
+          <div class="feel-box anxious">
+            <div class="feel-label">How Anxious Feels</div>
+            <p class="feel-text">You feel rescued but terrified. The secure partner's consistency is a balm, but the moment they need space, your internal alarm triggers: <em>They are pulling away. I knew it.</em> Their healthy autonomy registers as cold withdrawal, sparking intense protest behavior—either clinging and appeasing, or angry resistance and blame to force them back.</p>
+            <div class="quote-block quote-anxious">
+              "They told me they loved me and I heard it, really heard it, for about forty-five minutes. Then my brain started building the case for why they couldn't possibly mean it, or why they would change their mind, or what I must have done to make them say it when they didn't really feel it. I hate that I do this. But I can't seem to stop."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>The secure partner provides a "secure base," which, according to Mikulincer & Shaver, can gradually buffer the anxious partner's hyperactivation. The secure partner tolerates the anxious partner's emotional waves, responding with consistency rather than reactivity. However, if the anxious partner does not do their own internal work, the secure partner will eventually experience "caregiver burnout."</p>
+          <p>The secure partner must learn to set boundaries without being cruel, communicating: <em>"I love you, and I need an hour alone."</em> The anxious partner must learn to self-soothe during that hour, recognizing that space is not synonymous with abandonment. They must also drop the armor of anger, acknowledging vulnerability instead of blaming the partner. It is a highly repairable dynamic if both are willing to understand the other's baseline.</p>
+        </div>
+        <div class="pairing-research">
+          <h4>What the Research Shows</h4>
+          <p>Studies on "attachment security priming" (Mikulincer & Shaver, 2007) show that proximity to a secure partner can temporarily reduce attachment anxiety. However, Sue Johnson's Emotionally Focused Therapy (EFT) research highlights that if the anxious partner's protests escalate—whether through clinging or angry criticism—and the secure partner begins to withdraw in exhaustion, the couple enters a "pursue-withdraw" cycle. The key variable for stability is the secure partner's capacity to maintain emotional engagement while holding boundaries.</p>
+          <p><strong>Key findings:</strong> Simpson, Rholes & Nelligan (1992) demonstrated that secure individuals provide more support under stress, but Simpson et al. (2011) found that chronic support demands without reciprocity lead to secure partners reporting burnout and emotional withdrawal — a pattern Mikulincer & Shaver (2016) describe as the "caregiver's dilemma" in anxious-secure pairings. Coan, Schaefer & Davidson (2006) showed that spousal hand-holding reduced neural threat responses, especially in highly anxious individuals. Hadden, Baker & Knee (2018) found that anxious individuals in relationships with secure partners showed significant increases in felt security over 9 months — the closest thing to "earned security" documented longitudinally.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-secure);">For the Secure partner:</strong> Learning that setting boundaries is not abandonment — it's the thing that makes your ongoing presence sustainable. Saying "I need 30 minutes of quiet" is an act of love, not withdrawal. Your anxious-ambivalent partner needs your consistency, but they also need to see that a relationship includes two whole people, not one person managing the other's alarm system.</p>
+              <p>Practical shift: Replace perpetual reassurance ("I'll never leave") with specific, time-bound commitment ("I'm here this week, and I'll tell you if that changes"). Vague forever-promises actually increase anxiety; concrete present-moment commitments reduce it (Overall et al., 2015).</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-anxious);">For the Anxious-Ambivalent/Preoccupied partner:</strong> Building the capacity to self-soothe before reaching out. Not instead of reaching out — but <em>before</em>. The 10 minutes you spend calming your own nervous system before asking for reassurance changes the dynamic from "I need you to fix this" to "I'm struggling and I'd like your company." This small shift is the difference between dependency and interdependence.</p>
+              <p>Practical shift: When the impulse to check, test, or pursue arises, practice the "pause and name" technique — pause for 60 seconds, name what you're feeling (fear, shame, longing), and then choose your action rather than being driven by the urgency. Research on mindful attachment (Caldwell & Shaver, 2015) shows this reduces protest behavior by up to 40%.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- SECURE × DISMISSIVE -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Secure × Dismissive-Avoidant</div>
+        <h3 class="pairing-title">The Harbor and the <em>Ship</em></h3>
+        <div class="pairing-feelings">
+          <div class="feel-box secure">
+            <div class="feel-label">How Secure Feels</div>
+            <p class="feel-text">You feel shut out. You know they love you in their own way, but their inability to share their inner world makes you feel like a guest in your own relationship. Over time, the lack of emotional reciprocity starts to make you feel unnecessarily needy—simply for wanting a baseline level of intimacy. You stop asking for what you need to avoid their withdrawal.</p>
+            <div class="quote-block quote-secure">
+              "I told them I was scared about my mom's health and they said 'Have you called the doctor?' and walked away. It was practical advice. It was also the loneliest I've ever felt inside a conversation. I didn't need a solution. I needed someone to sit in the fear with me for a minute."
+            </div>
+          </div>
+          <div class="feel-box dismissive">
+            <div class="feel-label">How Dismissive Feels</div>
+            <p class="feel-text">You feel intruded upon. The secure partner's desire for emotional depth and connection registers as a demand for performance. You wonder why they can't just be fine with things the way they are. Your independence feels threatened by their need to talk about feelings, and so you lean heavily into your deactivating strategies to create distance.</p>
+            <div class="quote-block quote-dismissive">
+              "They asked me how I felt and I said 'fine.' They said 'I know you're fine — but what else?' Nobody has ever asked me that twice. I didn't have an answer. I genuinely didn't know what was underneath 'fine.' That scared me more than anything else in the relationship."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>Secure individuals naturally seek connection during stress, but the dismissive partner's deactivation triggers a subtle "protest" even in the secure person. The secure partner will attempt to initiate repair, but will be met with a wall of logic, distance, or irritability. The secure partner learns to self-soothe, but eventually, they require reciprocity.</p>
+          <p>The dismissive partner must recognize that their "need for space" is often a trauma response disguised as a preference. The secure partner must hold their ground, asking for connection without attacking the dismissive partner's autonomy. The dismissive partner, in turn, must practice staying present in the discomfort of being needed.</p>
+        </div>
+        <div class="pairing-research">
+          <h4>What the Research Shows</h4>
+          <p>Gottman's research on "stonewalling" closely mirrors the dismissive deactivation strategy. When a partner stonewalls, the other partner's heart rate elevates, indicating physiological distress. The secure partner has a higher tolerance for this dynamic than an anxious partner would, but longitudinal data shows that relationships with chronic emotional withdrawal suffer from intimacy deficit. The relationship survives only if the dismissive partner expands their "window of tolerance" for emotional closeness.</p>
+          <p><strong>Key findings:</strong> Rholes et al. (2006) found that avoidant partners in relationships with secure individuals gradually decreased in avoidance over 6 months, but this depended on the secure partner maintaining low demand for emotional reciprocity. When secure partners increased pressure for intimacy, avoidant partners' deactivation intensified. Overall et al. (2015) confirmed that secure partners' patient responsiveness — not their confrontation — predicted positive change. DeWall et al. (2012) used fMRI to show that avoidant individuals exhibited neural evidence of emotional pain during social exclusion despite claiming not to care. Fraley et al. (2011) found that dismissive individuals in secure relationships showed measurable shifts toward security over 2+ years, but only when they didn't feel "pressured" to change.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-secure);">For the Secure partner:</strong> Accepting that your partner's emotional landscape is real even when it's invisible to you. Their "I'm fine" may genuinely be their best attempt at connection in that moment — not a dismissal of your care. Learn to recognize the <em>micro-bids</em> they make: the fact that they told you about their day, that they sat next to you on the couch, that they remembered your coffee order. For a dismissive person, these are not small things. They are the equivalent of someone else saying "I love you" with their whole chest.</p>
+              <p>Practical shift: Replace "Why won't you open up?" with "I noticed you shared X — that meant a lot to me." Positive reinforcement of small disclosures increases future vulnerability more than requesting it (Overall et al., 2015).</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-dismissive);">For the Dismissive partner:</strong> Practicing the discipline of noticing what you feel — even when what you feel is "nothing." Especially then. The blankness isn't the absence of emotion; it's the signal that emotion was detected and quarantined before it reached consciousness. Start with body sensations: tightness, restlessness, numbness. These are affect in disguise. And practice saying one true thing about your inner experience to your partner each day, no matter how small.</p>
+              <p>Practical shift: Before defaulting to "fine," try "I'm still figuring out how I feel — can I get back to you?" This honors both your need for processing time and your partner's need for authenticity. Research by Lane et al. (2015) on "affect labeling" shows that simply naming an emotion reduces amygdala activation — the act of identifying what you feel literally begins to regulate it.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ANXIOUS × DISMISSIVE -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Anxious-Ambivalent/Preoccupied × Dismissive-Avoidant</div>
+        <h3 class="pairing-title">The <em>Anxious-Avoidant</em> Trap</h3>
+        <div class="pairing-feelings">
+          <div class="feel-box anxious">
+            <div class="feel-label">How Anxious Feels</div>
+            <p class="feel-text">You feel perpetually starved and ignored. Every unread message confirms your worst fear: you are unlovable. The dismissive partner's distance feels like a deliberate punishment. You pursue, protest, and panic—either by clinging desperately or lashing out with angry blame—trying to force a connection, only to be met with a wall of coldness that makes you feel entirely invisible.</p>
+            <div class="quote-block quote-anxious">
+              "I know I'm too much. I know I ask too many questions and need too much reassurance. But when they go quiet — really quiet, the kind where they're in the same room but they're a thousand miles away — I can't think about anything else. It's like an alarm is going off inside me that only I can hear. And they won't even acknowledge the alarm is real."
+            </div>
+          </div>
+          <div class="feel-box dismissive">
+            <div class="feel-label">How Dismissive Feels</div>
+            <p class="feel-text">You feel perpetually suffocated and provoked. The anxious partner's neediness and emotional volatility feel like a cage closing in. Their demands for reassurance feel like a threat to your survival. You withdraw, stonewall, and focus on their flaws to justify your distance, wondering why they can't just handle their own emotions like you do.</p>
+            <div class="quote-block quote-dismissive">
+              "I know they just want to feel close. I know my distance hurts them. But every time they push for more, something in me just... closes. Like a door slamming shut inside my chest that I didn't open and can't seem to unlock. I wish I could explain that it's not about them. It's about what happens inside me when someone needs me that much. I feel like I'm disappearing."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>This is the most common and volatile insecure pairing. The anxious partner's hyperactivation triggers the dismissive partner's deactivation, creating a self-fulfilling prophecy. The more the anxious pursues or protests, the more the dismissive retreats. The more the dismissive retreats, the more the anxious panics.</p>
+          <p>It validates both of their internal working models: the anxious person thinks, <em>"See, people always leave me,"</em> and the dismissive person thinks, <em>"See, people are always too needy."</em> It is a painful, high-drama cycle that often breaks only when the anxious partner finally burns out and withdraws—which suddenly terrifies the dismissive partner, who may then briefly pursue to restore the safe distance.</p>
+        </div>
+        <div class="pairing-research">
+          <h4>What the Research Shows</h4>
+          <p>Research by Marshall & Lee (1998) and others indicates that anxious-dismissive pairings report high initial attraction but low long-term satisfaction. The cycle is highly stable without intervention because both partners validate the other's core fears. Gottman refers to this as the "demand-withdraw" pattern, the most robust predictor of relationship dissolution. The relationship can only heal if the anxious partner learns to self-soothe and the dismissive partner learns to lean into discomfort rather than away from it.</p>
+          <p><strong>Key findings:</strong> Butzer & Campbell (2008) found that anxious-avoidant couples reported the lowest relationship satisfaction of all pairings, with a reciprocal negative cycle where each partner's coping strategy amplified the other's insecurity. J. Feeney & Noller (1990) documented that anxious individuals in relationships with avoidant partners showed significantly higher cortisol levels and more frequent health complaints than any other pairing — the body keeps score when the relationship can't find safety. Simpson et al. (2011) demonstrated the "diabolic cycle" — anxious partners' pursuit predicts avoidant partners' withdrawal, which predicts increased pursuit, in a self-reinforcing loop. However, Pietromonaco & Beck (2019) found that when avoidant partners practiced brief, voluntary self-disclosure (even just one personal share per day), their anxious partners' pursuit behavior decreased by ~35%.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-anxious);">For the Anxious-Ambivalent/Preoccupied partner:</strong> The most transformative shift is learning that <em>not pursuing</em> is not the same as not caring. When you feel the impulse to chase, text again, ask one more question — try doing the opposite: turn toward yourself. Ask what you need in this moment and whether your partner is the only source of it. Building self-soothing capacity isn't about needing your partner less; it's about bringing a regulated nervous system to the relationship so that your bids for connection come from desire rather than desperation.</p>
+              <p>Critical reframe: Your partner's need for space is not evidence that they don't love you. It's evidence that their nervous system works differently. Research by Simpson et al. (2007) shows that avoidant partners who are given space return to connection <em>faster</em> than avoidant partners who are pursued during withdrawal. Space is not distance — it's the condition under which your partner can actually choose to come back.</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-dismissive);">For the Dismissive partner:</strong> The key practice is <strong>voluntary vulnerability</strong> — sharing something real about your inner experience before you're asked. The research is clear: self-initiated disclosure calms your anxious-ambivalent partner more effectively than any reassurance you could offer, because it addresses the root fear ("They don't want to share themselves with me") rather than the surface symptom ("They might leave"). One genuine share per day — about your day, a worry, something that made you feel something — can shift the entire dynamic.</p>
+              <p>Critical reframe: Your partner's need for closeness is not evidence that you're inadequate or that they're trying to consume you. It's evidence that they love you and want to feel connected. The terror that closeness will erase your autonomy is a legacy, not a prophecy. You can be close and remain yourself — but only if you practice staying present long enough to discover that the walls were never actually necessary.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ANXIOUS × FEARFUL -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Anxious-Ambivalent/Preoccupied × Fearful-Avoidant</div>
+        <h3 class="pairing-title">The Tsunami and the <em>Fault Line</em></h3>
+        <div class="pairing-feelings">
+          <div class="feel-box anxious">
+            <div class="feel-label">How Anxious Feels</div>
+            <p class="feel-text">You feel catastrophic abandonment. When the fearful partner pulls away, your anxiety spikes to 100. You chase them down, demanding answers, unable to tolerate the sudden void. Their mixed signals drive you into a state of constant hyperactivation, making you feel like you are losing your mind.</p>
+            <div class="quote-block quote-anxious">
+              "When they come back after one of their disappearances, they look at me with such devastation — like they're as destroyed by it as I am. And I believe them. That's the hardest part. I believe that they're suffering too. But believing them doesn't make the nights alone any easier, and it doesn't stop me from wondering which version of them I'll wake up to tomorrow."
+            </div>
+          </div>
+          <div class="feel-box fearful">
+            <div class="feel-label">How Fearful Feels</div>
+            <p class="feel-text">You feel overwhelmed by the anxious partner's intense needs. Their pursuit feels like a threat to your survival, triggering your trauma responses. You want connection, but their insistence makes you feel like you are drowning. You lash out or ghost to protect yourself, only to be consumed by guilt and longing later.</p>
+            <div class="quote-block quote-fearful">
+              "I can feel them hurting and I can feel myself causing it and I can't sit with either one. So I leave. And then I hate myself for leaving. And then I come back and they're angry, which makes me feel like I was right to leave, which makes me want to leave again. I know how insane this sounds. I know. But I don't know how to stop the ride."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>This is a highly activating, high-drama cycle. Both partners have high anxiety, but the fearful partner also has high avoidance. When close, the fearful's avoidance triggers the anxious's anxiety, leading to explosive conflicts, sudden ghosting, and intense, tearful reunions. There is no stable baseline; the relationship is a constant state of emotional flooding.</p>
+          <p>The anxious partner must learn to step back when the fearful partner needs space, rather than pursuing. The fearful partner must learn to communicate their need for space without fleeing entirely or acting out. It requires immense self-regulation from both sides, as both nervous systems are constantly alarming.</p>
+        </div>
+        <div class="pairing-research">
+          <h4>What the Research Shows</h4>
+          <p>Studies on relational turbulence show that high anxiety in both partners leads to rapid escalation of conflict. The fearful partner's lack of a coherent strategy (Main & Solomon) prevents the consistent reassurance the anxious partner needs. Schore's work on affect regulation notes that both partners lack the internal capacity to down-regulate their own nervous systems, leading to chronic mutual dysregulation. This pairing is highly prone to toxic ruptures without dedicated therapeutic intervention.</p>
+          <p><strong>Key findings:</strong> Fitzpatrick & Lafontaine (2017) found that anxious-fearful pairings had the highest rates of hostile conflict and the highest rates of affectionate reconciliation of any insecure pairing — a volatility cycle that predicts both the highest "passion" scores and the lowest "stability" scores. Pietromonaco & Beck (2019) noted that both partners' attachment systems are chronically activated in this pairing, producing sustained cortisol elevation and relationship burnout at rates significantly higher than other combinations. Bartholomew & Allison (1998) noted that fearful-avoidant individuals in relationships with anxious partners reported the most intense "highs" of any insecure pairing but also the most destabilizing "lows." Hesse & Main (2006) found that the disorganized partner's withdrawal after intense closeness is driven by shame and fear rather than lack of caring.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-anxious);">For the Anxious-Ambivalent/Preoccupied partner:</strong> Learning to recognize that your partner's withdrawal is not abandonment — it's the only way they know how to survive the intensity. When they retreat, the most loving thing you can do is <em>not chase</em>, and instead communicate: "I'm here, I'm not going anywhere, take the time you need." Then actually <em>be</em> there when they return — without punishment, without a tally of wounds. This doesn't mean tolerating abuse or chronic unavailability; it means differentiating between your partner's nervous-system-driven withdrawal and actual neglect.</p>
+              <p>Essential practice: Build a relationship with your own anxiety that isn't mediated through your partner. When the impulse to pursue arises, practice saying to yourself: "This is my attachment alarm, not an emergency. I can feel this and choose my response." This 30-second pause between stimulus and response is where the entire dynamic can shift.</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-fearful);">For the Fearful-Avoidant partner:</strong> The discipline here is staying. When every cell in your body is screaming to flee — stay. When the closeness feels like it's going to swallow you — communicate that feeling instead of acting on it: "I'm feeling overwhelmed right now. I'm not leaving. I just need to breathe." This simple sentence is revolutionary because it addresses both your needs simultaneously: it gives you space (acknowledging the overwhelm) while also giving your partner safety (explicitly stating you're not leaving).</p>
+              <p>This pairing more than any other requires professional support. The research is unambiguous: anxious-fearful relationships that incorporate couples therapy — particularly Emotionally Focused Therapy (Johnson, 2004) — show significantly better outcomes than those that don't. Your love is real. Your dynamic is treatable. But you need tools that neither of you developed in your early attachment histories.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISMISSIVE × FEARFUL -->
+      <article class="pairing-block reveal">
+        <div class="pairing-tag">Dismissive-Avoidant × Fearful-Avoidant</div>
+        <h3 class="pairing-title">The Glacier and the <em>Avalanche</em></h3>
+        <div class="pairing-feelings">
+          <div class="feel-box dismissive">
+            <div class="feel-label">How Dismissive Feels</div>
+            <p class="feel-text">You feel annoyed by the fearful's emotional volatility. Their clinging and pushing away feels exhausting, dramatic, and illogical. You lean heavily into your independence to escape the drama, wondering why they can't just be rational. Their intense emotions make you shut down even further.</p>
+            <div class="quote-block quote-dismissive">
+              "With my ex, I always knew where I stood — they needed more than I could give, and I gave what I could. It was simple. But this one — some nights they want to know everything about me, and other nights they look at me like I've hurt them just by being in the room. I can't figure out the pattern. And I can't figure out my role in whatever's going wrong."
+            </div>
+          </div>
+          <div class="feel-box fearful">
+            <div class="feel-label">How Fearful Feels</div>
+            <p class="feel-text">You feel completely abandoned and judged. The dismissive's coldness confirms your deepest, most terrifying belief: the world is unsafe and people will hurt you. You vacillate between begging for their love and resenting them for their numbness. Their lack of response makes you feel entirely invisible and flawed.</p>
+            <div class="quote-block quote-fearful">
+              "I finally got the courage to tell them I was scared — about us, about everything — and they said 'That's interesting' and went back to reading. They weren't cruel. They weren't dismissive in an angry way. They just... didn't engage. And the not-engaging hurt more than a fight would have. At least in a fight, you know the other person is affected by you. I'm not sure I affect them at all."
+            </div>
+          </div>
+        </div>
+        <div class="pairing-dynamic">
+          <h4>The Dynamic & Response</h4>
+          <p>Both have high avoidance, so the relationship often looks "quiet" on the surface, but it is a quiet born of deep disconnection. The dismissive partner sets the tone with distance, which the fearful partner initially tolerates. However, because the fearful partner has underlying high anxiety, they eventually cannot tolerate the distance and erupt with need.</p>
+          <p>The dismissive partner responds to this eruption by shutting down completely, triggering the fearful partner's worst fears of abandonment. It is a slow, simmering agony. The relationship lacks a pursuer to force constant conflict, leading instead to emotional dead zones punctuated by sudden, devastating ruptures.</p>
+        </div>
+        <div class="pairing-research">
+          <h4>What the Research Shows</h4>
+          <p>According to Bartholomew & Horowitz (1991), when two avoidant individuals pair up, the relationship is characterized by low intimacy and low conflict. However, because the fearful partner's avoidance is a response to trauma (not a true preference for independence), they carry underlying anxiety. Sue Johnson's EFT research shows that when the fearful partner's anxiety erupts, the dismissive partner's deactivation is so severe that repair is nearly impossible without a third party. The relationship is highly vulnerable to sudden dissolution when the fearful partner's pain exceeds their capacity to suppress it.</p>
+          <p><strong>Key findings:</strong> Bartholomew & Horowitz (1991) documented that dismissive-fearful pairings report the lowest rates of overt conflict of any insecure pairing — but also the lowest rates of emotional intimacy and self-disclosure. Mikulincer & Shaver (2016) note that this pairing is the most likely to result in "parallel lives" — cohabitation without genuine emotional engagement, where both partners are physically present but relationally absent. Bartholomew & Shaver (1998) documented that fearful-avoidant individuals paired with dismissive partners reported the highest rates of emotional loneliness of any pairing. However, Duemmler & Kobak (2001) found that when the fearful-avoidant partner was supported in making <em>direct</em> (rather than covert) bids for connection, dismissive partners responded more positively than expected — suggesting that the dismissive partner's non-responsiveness was partially a failure to detect subtle bids rather than a refusal to respond.</p>
+        </div>
+        <div class="pairing-growth">
+          <h4>What Growth Looks Like Together</h4>
+          <div class="growth-grid">
+            <div class="growth-col">
+              <p><strong style="color: var(--s-dismissive);">For the Dismissive partner:</strong> The most important shift is learning to <em>notice</em> your partner's bids for connection — especially the subtle ones. Your fearful-avoidant partner may not say "I need you" directly. They may show it through proximity, small disclosures, or even through withdrawal (which is often a paradoxical signal that they're wishing you'd reach for them). Practice a daily ritual of asking one genuine question about your partner's inner experience — and listening to the answer without redirecting to logistics or solutions.</p>
+              <p>Critical insight: Your partner's occasional bursts of emotional intensity are not manipulation — they're the accumulated pressure of needs that have gone unexpressed for too long. If you respond to these moments with steadiness rather than withdrawal, you'll find they happen less often. Emotional pressure releases when it has a valve; it builds when the valve is shut.</p>
+            </div>
+            <div class="growth-col">
+              <p><strong style="color: var(--s-fearful);">For the Fearful-Avoidant partner:</strong> The critical practice is making <em>direct</em> bids for connection. Your dismissive partner is not attuned to emotional subtlety — they don't read between lines because they've spent their life avoiding emotional text altogether. If you need comfort, say "I need comfort." If you need to talk, say "I need to talk and I need you to listen, not fix." Directness is your lifeline in this pairing — not because your needs are burdensome, but because your partner literally cannot perceive them in their indirect form.</p>
+              <p>Critical insight: The absence of response is not the same as the absence of care. Your partner's emotional range is narrower than yours, but that doesn't mean you're invisible to them. When they remember your schedule, maintain your shared home, or sit next to you on the couch — that's their language. Learn to hear it, while also teaching them yours. The goal is bilingualism, not one partner learning the other's language alone.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== LIFESPAN OF A BOND ========== -->
+<section id="lifespan">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">05 — The Lifespan of a Bond</span>
+      <h2 class="section-title">How each style <em>loves</em>,<br>from beginning to end.</h2>
+      <p class="section-intro">Attachment styles are not just reactions to a partner; they are the blueprints of how we construct the relationship itself. Here is how each style tends to experience the chronological lifespan of a bond: the initial spark, the navigation of the middle, and how it ends—or how it evolves.</p>
+    </div>
+
+    <div class="lifespan-stack">
+
+      <!-- SECURE LIFESPAN -->
+      <article class="lifespan-block style-secure reveal">
+        <div class="lifespan-header">
+          <div class="style-num">STYLE 01 — SECURE</div>
+          <h3 class="pairing-title" style="margin-bottom: 0;">The Evolution of <em>Partnership</em></h3>
+        </div>
+        <p class="body-text" style="margin-bottom: 20px; max-width: 900px;">The secure lifespan is not without conflict, but it is defined by a lack of chronic threat. However, Secure individuals are often one of the most misunderstood styles, particularly by Fearful-Avoidants. A secure person communicates their needs and sets boundaries openly as a means of healthy, stable communication. Yet, to an avoidant, these healthy needs can seem pushy or forceful. The secure partner is simply looking to make things stable, but because the relationship itself becomes anxious due to the avoidant's behavior, the secure partner's actions are often misread as seeking reassurance out of fear.</p>
+        <p class="body-text" style="margin-bottom: 40px; max-width: 900px;">Conversely, a secure partner might misunderstand a fearful-avoidant. They might accuse their partner of not being sincere, lying, or hiding things, failing to realize the fearful-avoidant genuinely needs time to feel safe. When the fearful-avoidant pulls away—even when given time—it is not a lack of care, but their nervous system's response to things getting "more real." The secure partner often does not tolerate this behavior; unless it is communicated properly and understood, the secure partner often leaves, unaware that the fearful-avoidant's intentions were entirely genuine.</p>
+        
+        <div class="lifespan-grid">
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 01</span>
+            <h4 class="life-phase-title">The Beginning (Mutual Trust)</h4>
+            <p class="life-phase-text">The secure person enters love with open curiosity. They don't play games to test devotion. They communicate their interests and boundaries clearly. Intimacy feels like a harbor; they allow themselves to be known without fearing they will be abandoned for their flaws.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 02</span>
+            <h4 class="life-phase-title">The Middle (The Secure Base)</h4>
+            <p class="life-phase-text">In the middle, the secure person navigates stress by leaning into the partner. They don't stonewall or pursue aggressively. When ruptures happen, they assume positive intent, repair quickly, and hold their partner accountable without shaming them. They balance autonomy and closeness seamlessly.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 03</span>
+            <h4 class="life-phase-title">The End / Evolution</h4>
+            <p class="life-phase-text">If the relationship ends, they grieve deeply but do not shatter. They recognize incompatibility without internalizing it as a verdict on their worth. If it evolves, it deepens into a lasting partnership built on mutual respect, enduring intimacy, and shared growth.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ANXIOUS LIFESPAN -->
+      <article class="lifespan-block style-anxious reveal">
+        <div class="lifespan-header">
+          <div class="style-num">STYLE 02 — ANXIOUS-AMBIVALENT/PREOCCUPIED</div>
+          <h3 class="pairing-title" style="margin-bottom: 0;">The Chase for <em>Salvation</em> & The War for <em>Recognition</em></h3>
+        </div>
+        <p class="body-text" style="margin-bottom: 40px; max-width: 900px;">The anxious-ambivalent/preoccupied lifespan is defined by a desperate quest for merging, placing an enormous, often unbearable weight on the relationship. They seek in a partner the unconditional, perfect attunement they missed in childhood, but they are furious that they have to ask for it. The relationship becomes a testing ground where the partner is constantly put on trial.</p>
+        
+        <div class="lifespan-grid">
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 01</span>
+            <h4 class="life-phase-title">The Beginning (Merging/High Intensity)</h4>
+            <p class="life-phase-text">The beginning is intoxicating and fiery. They idealize the partner, moving quickly toward intense intimacy, often abandoning their own friends or hobbies. They may establish a dynamic of giver/taker, building a case of resentment from day one to protect against anticipated disappointment. They mistake the adrenaline of hyperactivation for true love.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 02</span>
+            <h4 class="life-phase-title">The Middle (Protest, Panic, & Blame)</h4>
+            <p class="life-phase-text">As the partner naturally settles into a normal rhythm, the anxious system alarms. They interpret autonomy as withdrawal. The middle is characterized by protest behaviors: clinging, picking fights, criticizing, or resisting repair. They view behaviors through a negative lens, rewriting the story to make the partner the villain, avoiding the shame of their own fear of inadequacy.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 03</span>
+            <h4 class="life-phase-title">The End / Evolution</h4>
+            <p class="life-phase-text">If they end, it is often a desperate, dramatic break followed by attempts to reconcile, terrified of being alone. To evolve, they must do the painful work of self-soothing—dropping the armor of anger, acknowledging their vulnerability, and asking for what they need without punishing the partner for not reading their mind.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- DISMISSIVE-AVOIDANT LIFESPAN -->
+      <article class="lifespan-block style-dismissive reveal">
+        <div class="lifespan-header">
+          <div class="style-num">STYLE 03 — DISMISSIVE-AVOIDANT</div>
+          <h3 class="pairing-title" style="margin-bottom: 0;">The Illusion of <em>Independence</em></h3>
+        </div>
+        <p class="body-text" style="margin-bottom: 40px; max-width: 900px;">The dismissive lifespan is a story of controlled distance. They engage enough to maintain the relationship, but deactivate the moment it threatens their fiercely guarded autonomy.</p>
+        
+        <div class="lifespan-grid">
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 01</span>
+            <h4 class="life-phase-title">The Beginning (Charming Distance)</h4>
+            <p class="life-phase-text">The dismissive person is often highly attractive at the start—competent, independent, and unbothered. They enjoy the company but keep the emotional boundary clear. They compartmentalize the relationship, fitting it neatly into their schedule without letting it disrupt their core self.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 02</span>
+            <h4 class="life-phase-title">The Middle (Deactivation)</h4>
+            <p class="life-phase-text">As the partner demands more emotional depth, the dismissive feels engulfed. They engage in fault-finding—magnifying the partner's minor flaws to justify keeping them at arm's length. They stonewall during conflict, focus on work, and secretly cultivate a private life the partner cannot access. They do not feel they are pushing the partner away; they feel they are protecting their sanity.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 03</span>
+            <h4 class="life-phase-title">The End / Evolution</h4>
+            <p class="life-phase-text">The relationship often ends silently. The dismissive simply checks out, becoming indifferent. Because they lack a secure base, they feel no acute loss initially (though it often hits months later). To evolve, they must recognize that their "independence" is a trauma response. They must practice staying emotionally present when the partner asks for connection, tolerating the discomfort of vulnerability.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- FEARFUL-AVOIDANT LIFESPAN -->
+      <article class="lifespan-block style-fearful reveal">
+        <div class="lifespan-header">
+          <div class="style-num">STYLE 04 — FEARFUL-AVOIDANT</div>
+          <h3 class="pairing-title" style="margin-bottom: 0;">The Tragedy of the <em>Survival Instinct</em></h3>
+        </div>
+        <p class="body-text" style="margin-bottom: 20px; max-width: 900px;">The fearful-avoidant lifespan is a tragic paradox, and they are often the most misunderstood of all the styles. They want love more than anything, but their nervous system—wired by past abuse or neglect—interprets healthy love as a lethal threat. Instead of a simple feeling of inadequacy, the fearful-avoidant carries deep wounds from childhood—often due to neglect, abuse, or otherwise frightening trauma. This early trauma generates pervasive shame. That shame makes them feel fundamentally flawed, compounding the abuse and neglect they survived, leaving them deeply insecure with a fractured sense of self-worth. They may even tell their partners they "can't change," even if they have previously put in the effort to do so.</p>
+        <p class="body-text" style="margin-bottom: 20px; max-width: 900px;">When overwhelmed, the fearful-avoidant shuts down, goes silent, and gets distant. The sources of this overwhelm are usually the very things that should signal safety: healthy affection, vulnerability, and a partner's consistent care. Because their nervous system is confusing them, they experience severe emotional ups and downs. If they are triggered and hurt deeply, they slowly pull away. They feel as though they are being attacked or accused of lying. Their negative past experiences cause them to view behaviors from a negative lens instead of looking at things positively and in a healthy way—even if the secure partner trusts, understands, cares for, and loves them.</p>
+        <p class="body-text" style="margin-bottom: 40px; max-width: 900px;">Fearful-avoidants tend to misunderstand Secure attachment the most. A secure partner's needs and boundaries are healthy, but they might seem pushy and forceful to the avoidant. The secure person communicates their needs openly as a means of healthy communication. Yet, it's often healthy things that are exactly what trigger the fearful-avoidant—because they've never had them. They confuse the secure partner's behaviors, and because the <em>relationship</em> is anxious due to the fearful-avoidant's behaviors, they think the secure partner is seeking reassurance out of fear. When they are instead just looking to make things stable and healthy. Unable to contain this internal chaos, they often attribute other life stressors to their partner, blaming them for being "too pushy" or "misunderstanding"—when in reality, the partner very much does understand.</p>
+        
+        <div class="lifespan-grid">
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 01</span>
+            <h4 class="life-phase-title">The Beginning (The Idealization)</h4>
+            <p class="life-phase-text">The fearful-avoidant enters love with intense longing. Because distance is safe, they are often highly engaged from afar—idealizing the partner. But as real intimacy begins to build, the nervous system starts misinterpreting the partner's healthy closeness as a <em>trap</em>. The safety they crave begins to feel suffocating, like drowning.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 02</span>
+            <h4 class="life-phase-title">The Middle (The Sabotage)</h4>
+            <p class="life-phase-text">To escape the suffocating terror of healthy love, the fearful-avoidant engages in <em>fault-finding</em>. They make excuses to blame the partner, rewriting the story so the partner appears "too needy" or "too demanding." This distortion allows them to avoid the crushing guilt and shame of their own inadequacy. They aren't doing this to be cruel; their nervous system is tricking them into believing the partner is at fault, justifying their retreat.</p>
+          </div>
+          <div class="life-phase">
+            <span class="life-phase-num">PHASE 03</span>
+            <h4 class="life-phase-title">The End (The Cycle Continues)</h4>
+            <p class="life-phase-text">Eventually, if they aren't left, they leave. They exit to find "peace," but peace feels like emptiness. Once at a safe distance, the trauma response fades, and the longing returns. They often repeat the cycle—returning to the partner they pushed away, only to feel suffocated again the moment closeness is restored. They self-sabotage, ruining what they want most.</p>
+          </div>
+        </div>
+        <div class="pairing-research" style="margin-top: 32px;">
+          <h4>How they overcome it</h4>
+          <p>To break the cycle, the fearful-avoidant must recognize that their brain is tricking them. They must learn to co-regulate with their partner, staying present instead of retreating, as uncomfortable, dangerous, and scary as that feels. While they are highly sensitive, they must understand that their partner is <strong>not fully responsible for regulating their entire mood</strong>. It is normal for a partner to affect them, but the fearful-avoidant must learn to control their own reactions and function <em>with</em> their partner, not against them. Healing requires staying in the discomfort of closeness, communicating the fear ("I feel trapped, but I know I am safe"), and doing the trauma work to rewire their neuroception of safety (Porges, Schore).</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMPARISON ========== -->
+<section id="comparison">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">06 — Cross-Verification</span>
+      <h2 class="section-title">A side-by-side <em>field guide</em>.</h2>
+      <p class="section-intro">The styles, organized across the dimensions that define them. These characteristics are consistent across the major attachment researchers — Bowlby, Ainsworth, Main, Hazan & Shaver, Bartholomew & Horowitz, Mikulincer & Shaver.</p>
+    </div>
+
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th><span class="swatch" style="background:var(--s-secure);"></span>Secure<span class="sub">Low / Low</span></th>
+            <th><span class="swatch" style="background:var(--s-anxious);"></span>Anxious-Ambivalent/Preoccupied<span class="sub">High / Low</span></th>
+            <th><span class="swatch" style="background:var(--s-dismissive);"></span>Dismissive-Avoidant<span class="sub">Low / High</span></th>
+            <th><span class="swatch" style="background:var(--s-fearful);"></span>Fearful-Avoidant<span class="sub">High / High</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Anxiety Level</th>
+            <td data-label="Secure">Low</td>
+            <td data-label="Anxious">High</td>
+            <td data-label="Dismissive">Low (suppressed)</td>
+            <td data-label="Fearful">High</td>
+          </tr>
+          <tr>
+            <th>Avoidance Level</th>
+            <td data-label="Secure">Low</td>
+            <td data-label="Anxious">Low</td>
+            <td data-label="Dismissive">High</td>
+            <td data-label="Fearful">High</td>
+          </tr>
+          <tr>
+            <th>Core Drive</th>
+            <td data-label="Secure">Connection & autonomy in balance</td>
+            <td data-label="Anxious">Constant proximity & reassurance (via protest or conflict)</td>
+            <td data-label="Dismissive">Independence & self-protection</td>
+            <td data-label="Fearful">Safety — pursued and feared at once</td>
+          </tr>
+          <tr>
+            <th>View of Self</th>
+            <td data-label="Secure">Positive — "I am worthy."</td>
+            <td data-label="Anxious">Negative — "I am not enough / I give too much."</td>
+            <td data-label="Dismissive">Positive (defensive mask)</td>
+            <td data-label="Fearful">Negative — "I am broken."</td>
+          </tr>
+          <tr>
+            <th>View of Others</th>
+            <td data-label="Secure">Positive — generally trustworthy</td>
+            <td data-label="Anxious">Unreliable; frustratingly blind to needs</td>
+            <td data-label="Dismissive">Negative — intrusive, dependent</td>
+            <td data-label="Fearful">Mixed — comfort and pain from same source</td>
+          </tr>
+          <tr>
+            <th>Stress Strategy</th>
+            <td data-label="Secure">Security-based — seek & offer support</td>
+            <td data-label="Anxious">Hyperactivation — protest, pursue, anger, blame</td>
+            <td data-label="Dismissive">Deactivation — withdraw, suppress</td>
+            <td data-label="Fearful">Disorganized — oscillate, freeze</td>
+          </tr>
+          <tr>
+            <th>Response to Distance</th>
+            <td data-label="Secure">"A problem to solve" — asks, repairs</td>
+            <td data-label="Anxious">"A catastrophe/betrayal" — pursues, panics, reacts with rage</td>
+            <td data-label="Dismissive">"A relief" — leans into autonomy</td>
+            <td data-label="Fearful">"A trap either way" — pursue then flee</td>
+          </tr>
+          <tr>
+            <th>Childhood Origin</th>
+            <td data-label="Secure">Consistent, responsive caregiving</td>
+            <td data-label="Anxious">Inconsistent, intrusive, or unpredictable caregiving</td>
+            <td data-label="Dismissive">Emotionally unavailable; premature independence</td>
+            <td data-label="Fearful">Frightening, traumatic, or abusive caregiving</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HEALING ========== -->
+<section id="healing">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">07 — What Changes</span>
+      <h2 class="section-title">Attachment is not <em>destiny</em>.<br>It is a starting point.</h2>
+    </div>
+
+    <div class="healing-grid">
+      <div class="healing-text reveal">
+        <p class="lead">The brain remains plastic. The story can be <em>rewritten</em> — not by erasing the old chapters, but by writing new ones often enough that they become the dominant narrative.</p>
+        <p>David Wallin, in <em>Attachment in Psychotherapy</em> (2007), describes what he calls <strong>"earned secure"</strong> attachment — adults who, despite insecure early experiences, develop coherent narratives of their childhood and the capacity for secure functioning in adult relationships. Research from the Adult Attachment Interview (George, Kaplan, Main) suggests that earned security is reachable through therapy, through long-term secure relationships, and — perhaps most importantly — through the slow, deliberate work of becoming a more reliable inner parent to oneself.</p>
+        <p>Estimates vary, but roughly <strong>40% of adults</strong> are securely attached at any given time — and a meaningful portion of those are earned secure, not continuously secure. Which means: the work is real, the work is slow, and the work <em>works</em>.</p>
+        <p>None of this is a five-step fix. Earned security is measured in years. But the direction of travel matters more than the speed — and the fact that the brain can change at all is, for many of us, the only good news we ever needed.</p>
+      </div>
+
+      <div class="healing-card reveal">
+        <h4>Pathways to Earned Security</h4>
+        <ul class="pathways">
+          <li>
+            <span class="path-num">01</span>
+            <div>
+              <div class="path-name">Therapeutic relationship</div>
+              <div class="path-desc">A sustained, secure bond with a therapist — especially in modalities like EFT, AEDP, or psychodynamic therapy — provides the relational container in which new internal working models can form.</div>
+            </div>
+          </li>
+          <li>
+            <span class="path-num">02</span>
+            <div>
+              <div class="path-name">A secure-enough partner</div>
+              <div class="path-desc">Long-term relationships with a secure partner can, over years, shift an insecure person's baseline. This is not a reason to seek a "fixer" — but it is a real phenomenon documented in longitudinal studies.</div>
+            </div>
+          </li>
+          <li>
+            <span class="path-num">03</span>
+            <div>
+              <div class="path-name">Coherent narrative</div>
+              <div class="path-desc">The central predictor of earned security in the AAI is the capacity to tell a <em>coherent</em> story about one's childhood — not a painless one, but one that makes sense. Making sense of what happened is, itself, the healing.</div>
+            </div>
+          </li>
+          <li>
+            <span class="path-num">04</span>
+            <div>
+              <div class="path-name">Somatic & emotional practice</div>
+              <div class="path-desc">Because attachment lives in the body as much as the mind, practices that build capacity for felt emotion — mindfulness, somatic experiencing, breathwork, journaling — gradually widen the window of tolerance.</div>
+            </div>
+          </li>
+          <li>
+            <span class="path-num">05</span>
+            <div>
+              <div class="path-name">Repair, not perfection</div>
+              <div class="path-desc">Earned security is not the absence of rupture — it is the increasingly reliable capacity to <em>repair</em>. Each repair rewires the model, slightly, toward trust.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div>
+      <p class="foot-quote">"All the love in the world cannot undo the past, but it can — slowly, imperfectly — make the future <em>habitable</em>."</p>
+      <p class="foot-attrib">— on earned security</p>
+    </div>
+    <div class="foot-col">
+      <h5>Primary Sources</h5>
+      <ul>
+        <li>Ainsworth, M. et al. (1978). <em>Patterns of Attachment</em></li>
+        <li>Bartholomew, K., & Allison, C. J. (1998). Love, intimacy, and attachment.</li>
+        <li>Bartholomew, K., & Horowitz, L. (1991). Four-category model</li>
+        <li>Bartholomew, K., & Shaver, P. R. (1998). Methods of assessing adult attachment.</li>
+        <li>Bowlby, J. (1969–1980). <em>Attachment and Loss</em></li>
+        <li>Butzer, B., & Campbell, L. (2008). Adult attachment, sexual satisfaction...</li>
+        <li>Caldwell, J. G., & Shaver, P. R. (2015). Promoting attachment-related mindfulness...</li>
+        <li>Cassidy, J. & Berlin, L. (1994). Ambivalent attachment</li>
+        <li>Coan, J. A., Schaefer, H. S., & Davidson, R. J. (2006). Lending a hand...</li>
+        <li>Collins, N. L., & Feeney, B. C. (2004). Working models of attachment...</li>
+        <li>Collins, N. L., & Read, S. J. (1990). Adult attachment, working models...</li>
+        <li>DeWall, C. N., et al. (2012). Do neural responses to rejection depend on attachment style?</li>
+        <li>Duemmler, S. L., & Kobak, R. (2001). The development of commitment...</li>
+        <li>Dutton, D. G., & Aron, A. P. (1974). Some evidence for heightened sexual attraction...</li>
+        <li>Dykas, M. J., & Cassidy, J. (2011). Attachment and the processing of social information...</li>
+        <li>Edelstein, R. S., & Shaver, P. R. (2004). Avoidant attachment: Exploration of an oxymoron.</li>
+        <li>Feeney, J. A., & Noller, P. (1990). Attachment style as a predictor of relationship outcomes...</li>
+        <li>Fitzpatrick, J., & Lafontaine, M. F. (2017). Attachment, trust, and satisfaction...</li>
+        <li>Fraley, R. C., & Shaver, P. R. (2000). Adult romantic attachment...</li>
+        <li>Hadden, B. W., Baker, Z. G., & Knee, C. R. (2018). Let it go...</li>
+        <li>Hazan, C., & Shaver, P. (1987). Romantic love conceptualized as attachment</li>
+        <li>Hesse, E., & Main, M. (2000). Disorganized infant, child, and adult attachment.</li>
+        <li>Johnson, S. M. (2004). <em>The Practice of Emotionally Focused Couple Therapy</em></li>
+        <li>Karantzas, G. C., et al. (2014). Is less more? Confirmatory factor analysis...</li>
+        <li>Levy, K. N., et al. (2011). Attachment theory and personality disorders.</li>
+        <li>Liotti, G. (2004). Trauma, dissociation, and disorganized attachment...</li>
+        <li>Main, M. & Solomon, J. (1986). Discovery of an insecure-disorganized/disoriented attachment pattern</li>
+        <li>Mikulincer, M. & Shaver, P. (2007). <em>Attachment in Adulthood</em></li>
+        <li>Overall, N. C., et al. (2015). Helping and harming: The role of partner attachment...</li>
+        <li>Pietromonaco, P. R., & Beck, L. A. (2019). Adult attachment and physical health.</li>
+        <li>Rholes, W. S., et al. (2006). Avoidant attachment and the experience of parenting.</li>
+        <li>Roisman, G. I., et al. (2002). Earned-secure attachment status in retrospect and prospect.</li>
+        <li>Simpson, J. A., et al. (1992). Support seeking and support giving within couples...</li>
+        <li>Steele, H., et al. (2014). Use of the Adult Attachment Interview to measure earned security.</li>
+        <li>Wallin, D. (2007). <em>Attachment in Psychotherapy</em></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#origins">Origins</a></li>
+        <li><a href="#dimensions">Two Dimensions</a></li>
+        <li><a href="#styles">Four Styles</a></li>
+        <li><a href="#dynamics">Relational Dynamics</a></li>
+        <li><a href="#lifespan">Lifespan of a Bond</a></li>
+        <li><a href="#comparison">Comparison</a></li>
+        <li><a href="#healing">Earned Security</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span>© Attachment Field Guide — for educational reading, not clinical use.</span>
+    <span>Built with care · 2026</span>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 13V3M3 8l5-5 5 5"/></svg>
+</button>
+
+<script>
+// ---------- Theme switching ----------
+const themeBtns = document.querySelectorAll('.theme-btn');
+const html = document.documentElement;
+const savedTheme = localStorage.getItem('att-theme');
+if (savedTheme) {
+  html.setAttribute('data-theme', savedTheme);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.set === savedTheme));
+}
+themeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const set = btn.dataset.set;
+    html.setAttribute('data-theme', set);
+    localStorage.setItem('att-theme', set);
+    themeBtns.forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+
+// ---------- Reading progress ----------
+const progress = document.getElementById('progress');
+function updateProgress() {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+  progress.style.width = (scrolled * 100) + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// ---------- Reveal on scroll ----------
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+// ---------- Active nav link ----------
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const navIO = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => navIO.observe(s));
+
+// ---------- Back to top ----------
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => {
+  toTop.classList.toggle('show', window.scrollY > 800);
+}, { passive: true });
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ---------- Smooth anchor scroll with offset ----------
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
